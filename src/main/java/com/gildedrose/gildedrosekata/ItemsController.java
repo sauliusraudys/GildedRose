@@ -9,6 +9,7 @@ import com.gildedrose.Item;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,11 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ItemsController {
 
-    private static final String template = "Hello, %s!";
+    @Autowired
+    private ItemsRepository repository;
 
     @RequestMapping("/items")
     public List<Item> greeting() {
-        return new ArrayList<>(Arrays.asList(new Item[]{
+        return repository.findAll();
+        /*return new ArrayList<>(Arrays.asList(new Item[]{
             new Item("+5 Dexterity Vest", 10, 20), //
             new Item("Aged Brie", 2, 0), //
             new Item("Elixir of the Mongoose", 5, 7), //
@@ -33,5 +36,6 @@ public class ItemsController {
             new Item("Backstage passes to a TAFKAL80ETC concert", 10, 49),
             new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
             new Item("Conjured Mana Cake", 3, 6)}));
+         */
     }
 }

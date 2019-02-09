@@ -1,0 +1,5 @@
+spring:
+    data:
+      mongodb:
+        database: gilded-rose
+        uri: mongodb://localhost:27017
