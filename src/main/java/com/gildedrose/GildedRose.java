@@ -1,6 +1,9 @@
 package com.gildedrose;
 
+import com.gildedrose.items.*;
+
 class GildedRose {
+
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -8,55 +11,27 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            if (!items[i].name.equals("Aged Brie")
-                    && !items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                if (items[i].quality > 0) {
-                    if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                        items[i].quality = items[i].quality - 1;
-                    }
-                }
-            } else {
-                if (items[i].quality < 50) {
-                    items[i].quality = items[i].quality + 1;
-
-                    if (items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (items[i].sellIn < 11) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
-
-                        if (items[i].sellIn < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
-                    }
-                }
+        for (Item i : items) {
+            RegularItem src;
+            switch (i.name) {
+                case "Aged Brie":
+                    src = new AgedBrieItem(i.name, i.sellIn, i.quality);
+                    break;
+                case "Sulfuras, Hand of Ragnaros":
+                    src = new SulfurasBrieItem(i.name, i.sellIn, i.quality);
+                    break;
+                case "Backstage passes to a TAFKAL80ETC concert":
+                    src = new BackstagePassesItem(i.name, i.sellIn, i.quality);
+                    break;
+                case "Conjured Mana Cake":
+                    src = new ConjuredItem(i.name, i.sellIn, i.quality);
+                    break;
+                default:
+                    src = new RegularItem(i.name, i.sellIn, i.quality);
             }
-
-            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                items[i].sellIn = items[i].sellIn - 1;
-            }
-
-            if (items[i].sellIn < 0) {
-                if (!items[i].name.equals("Aged Brie")) {
-                    if (!items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
-                        if (items[i].quality > 0) {
-                            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                                items[i].quality = items[i].quality - 1;
-                            }
-                        }
-                    } else {
-                        items[i].quality = items[i].quality - items[i].quality;
-                    }
-                } else {
-                    if (items[i].quality < 50) {
-                        items[i].quality = items[i].quality + 1;
-                    }
-                }
-            }
+            Item dest = src.updateQuality();
+            i.quality = dest.quality;
+            i.sellIn = dest.sellIn;
         }
     }
 }
