@@ -3,3 +3,7 @@ spring:
       mongodb:
         database: gilded-rose
         uri: mongodb://localhost:27017
+        
+gilded-rose:
+# once a day              second  minute hour   don't change
+    quality_update_time: "0       *      *      ? * *"
