@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@ComponentScan(basePackages = "com")
+@ComponentScan(basePackages = "com.gildedrose")
 public class GildedRoseKataApplication {
 
 	public static void main(String[] args) {
