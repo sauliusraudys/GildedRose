@@ -16,12 +16,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AssynchronousQualityUpdateConfig {
     
-    @Value("${gilded-rose.quality_update_time}")
-    private String cron_expression;
+    @Value("${gilded-rose.update_quality_at_hour}")
+    private String update_quality_at_hour;
+    @Value("${gilded-rose.update_quality_at_minute}")
+    private String update_quality_at_minute;
     
     @Bean
     String cronExpression() {
-        // TODO: validate expression for "once a day meaning"
-        return cron_expression;
+        return String.format("0 %s %s ? * *", update_quality_at_minute, update_quality_at_hour);
     }
 }

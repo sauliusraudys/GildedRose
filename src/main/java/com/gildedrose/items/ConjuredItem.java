@@ -19,13 +19,17 @@ public class ConjuredItem extends RegularItem {
 
     @Override
     public Item updateQuality() {
-        if (quality > 1) {
-            quality=quality-2;
-        }
-        sellIn--;
-        if (sellIn < 0 && quality > 1) {
-            quality=quality-2;
+        // "Conjured" items degrade in Quality twice as fast as normal items
+        decreaseQualityTwice();
+        decrementSellInDays();
+        if (sellIn < 0) {
+            decreaseQualityTwice();
         }
         return this;
+    }
+    
+    private void decreaseQualityTwice() {
+        decreaseQuality();
+        decreaseQuality();
     }
 }

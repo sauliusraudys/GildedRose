@@ -20,10 +20,8 @@ public class AgedBrieItem extends RegularItem {
 
     @Override
     public Item updateQuality() {
-        if (quality < 50) {
-            quality++;
-        }
-        sellIn--;
+        increaseQuality();
+        decrementSellInDays();
         return this;
     }
 }

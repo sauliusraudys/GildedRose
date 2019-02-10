@@ -5,5 +5,7 @@ spring:
         uri: mongodb://localhost:27017
         
 gilded-rose:
-# once a day              second  minute hour   don't change
-    quality_update_time: "0       *      *      ? * *"
+# number (from 0 to 23)
+    update_quality_at_hour: "23"
+# number (from 0 to 59)
+    update_quality_at_minute: "0"

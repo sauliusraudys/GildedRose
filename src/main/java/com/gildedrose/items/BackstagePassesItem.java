@@ -19,16 +19,17 @@ public class BackstagePassesItem extends RegularItem {
 
     @Override
     public Item updateQuality() {
-        if (quality < 50) {
-            quality++;
+        increaseQuality();
+        // Quality increases by 2 when there are 10 days or less
+        if (sellIn < 11) {
+            increaseQuality();
         }
-        if (sellIn < 11 && quality < 50) {
-            quality++;
+        // Quality increases by 3 when there are 5 days or less
+        if (sellIn < 6) {
+            increaseQuality();
         }
-        if (sellIn < 6 && quality < 50) {
-            quality++;
-        }
-        sellIn--;
+        decrementSellInDays();
+        // but Quality drops to 0 after the concert
         if (sellIn < 0) {
             quality=0;
         }

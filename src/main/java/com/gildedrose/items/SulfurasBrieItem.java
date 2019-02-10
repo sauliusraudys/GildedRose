@@ -20,6 +20,8 @@ public class SulfurasBrieItem extends RegularItem {
 
     @Override
     public Item updateQuality() {
+        // "Sulfuras", being a legendary item, never has to be sold or decreases in Quality
+        // it means - do nothing
         return this;
     }
 }

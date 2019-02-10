@@ -18,13 +18,33 @@ public class RegularItem extends Item {
     }
 
     public Item updateQuality() {
-        if (quality > 0) {
-            quality--;
-        }
-        sellIn--;
-        if (sellIn < 0 && quality > 0) {
-            quality--;
-        }
+        decreaseQuality();
+        decrementSellInDays();
+        decreaseQualityTwiceOnceSellByDateHasPassed();
         return this;
+    }
+
+    protected void decreaseQuality() {
+        // The Quality of an item is never negative
+        if (quality > 0) {
+            quality = quality - 1;
+        }
+    }
+
+    protected void decrementSellInDays() {
+        sellIn = sellIn - 1;
+    }
+
+    protected void decreaseQualityTwiceOnceSellByDateHasPassed() {
+        if (sellIn < 0 && quality > 0) {
+            decreaseQuality();
+        }
+    }
+
+    protected void increaseQuality() {
+        // The Quality of an item is never more than 50
+        if (quality < 50) {
+            quality = quality + 1;
+        }
     }
 }
