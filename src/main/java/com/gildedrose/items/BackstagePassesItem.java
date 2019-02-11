@@ -5,7 +5,8 @@
  */
 package com.gildedrose.items;
 
-import com.gildedrose.Item;
+import com.gildedrose.items.properties.SellInDays;
+import com.gildedrose.items.properties.Quality;
 
 /**
  *
@@ -13,26 +14,25 @@ import com.gildedrose.Item;
  */
 public class BackstagePassesItem extends RegularItem {
 
-    public BackstagePassesItem(String name, int sellIn, int quality) {
-        super(name, sellIn, quality);
+    public BackstagePassesItem(Quality quality, SellInDays sellIn) {
+        super(quality, sellIn);
     }
 
     @Override
-    public Item updateQuality() {
-        increaseQuality();
+    public void updateQuality() {
+        quality.increase();
         // Quality increases by 2 when there are 10 days or less
-        if (sellIn < 11) {
-            increaseQuality();
+        if (sellIn.isElevenDaysBeforeConcert()) {
+            quality.increase();
         }
         // Quality increases by 3 when there are 5 days or less
-        if (sellIn < 6) {
-            increaseQuality();
+        if (sellIn.isFiveDaysBeforeConcert()) {
+            quality.increase();
         }
-        decrementSellInDays();
+        sellIn.decrement();
         // but Quality drops to 0 after the concert
-        if (sellIn < 0) {
-            quality=0;
+        if (sellIn.IsOverdue()) {
+            quality.setQuality(0);
         }
-        return this;
     }
 }

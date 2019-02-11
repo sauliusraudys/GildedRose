@@ -5,7 +5,8 @@
  */
 package com.gildedrose.items;
 
-import com.gildedrose.Item;
+import com.gildedrose.items.properties.SellInDays;
+import com.gildedrose.items.properties.Quality;
 
 /**
  *
@@ -13,23 +14,22 @@ import com.gildedrose.Item;
  */
 public class ConjuredItem extends RegularItem {
 
-    public ConjuredItem(String name, int sellIn, int quality) {
-        super(name, sellIn, quality);
+    public ConjuredItem(Quality quality, SellInDays sellIn) {
+        super(quality, sellIn);
     }
 
     @Override
-    public Item updateQuality() {
+    public void updateQuality() {
         // "Conjured" items degrade in Quality twice as fast as normal items
         decreaseQualityTwice();
-        decrementSellInDays();
-        if (sellIn < 0) {
+        sellIn.decrement();
+        if (sellIn.IsOverdue()) {
             decreaseQualityTwice();
         }
-        return this;
     }
     
     private void decreaseQualityTwice() {
-        decreaseQuality();
-        decreaseQuality();
+        quality.decrease();
+        quality.decrease();
     }
 }

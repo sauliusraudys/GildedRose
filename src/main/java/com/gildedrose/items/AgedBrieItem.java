@@ -5,7 +5,8 @@
  */
 package com.gildedrose.items;
 
-import com.gildedrose.Item;
+import com.gildedrose.items.properties.SellInDays;
+import com.gildedrose.items.properties.Quality;
 
 /**
  *
@@ -14,14 +15,13 @@ import com.gildedrose.Item;
  */
 public class AgedBrieItem extends RegularItem {
 
-    public AgedBrieItem(String name, int sellIn, int quality) {
-        super(name, sellIn, quality);
+    public AgedBrieItem(Quality quality, SellInDays sellIn) {
+        super(quality, sellIn);
     }
 
     @Override
-    public Item updateQuality() {
-        increaseQuality();
-        decrementSellInDays();
-        return this;
+    public void updateQuality() {
+        quality.increase();
+        sellIn.decrement();
     }
 }

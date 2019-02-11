@@ -5,7 +5,8 @@
  */
 package com.gildedrose.items;
 
-import com.gildedrose.Item;
+import com.gildedrose.items.properties.SellInDays;
+import com.gildedrose.items.properties.Quality;
 
 /**
  *
@@ -14,14 +15,13 @@ import com.gildedrose.Item;
  */
 public class SulfurasBrieItem extends RegularItem {
 
-    public SulfurasBrieItem(String name, int sellIn, int quality) {
-        super(name, sellIn, quality);
+    public SulfurasBrieItem(Quality quality, SellInDays sellIn) {
+        super(quality, sellIn);
     }
 
     @Override
-    public Item updateQuality() {
+    public void updateQuality() {
         // "Sulfuras", being a legendary item, never has to be sold or decreases in Quality
         // it means - do nothing
-        return this;
     }
 }

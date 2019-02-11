@@ -5,8 +5,6 @@
  */
 package com.gildedrose;
 
-import com.gildedrose.GildedRose;
-import com.gildedrose.Item;
 import com.gildedrose.gildedrosekata.ItemsRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

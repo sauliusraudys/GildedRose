@@ -5,46 +5,38 @@
  */
 package com.gildedrose.items;
 
-import com.gildedrose.Item;
+import com.gildedrose.items.properties.SellInDays;
+import com.gildedrose.items.properties.Quality;
 
 /**
  *
  * @author saulius
  */
-public class RegularItem extends Item {
+public class RegularItem {
 
-    public RegularItem(String name, int sellIn, int quality) {
-        super(name, sellIn, quality);
+    Quality quality;
+    SellInDays sellIn;
+
+    public RegularItem(Quality quality, SellInDays sellIn) {
+        this.quality = quality;
+        this.sellIn = sellIn;
     }
 
-    public Item updateQuality() {
-        decreaseQuality();
-        decrementSellInDays();
-        decreaseQualityTwiceOnceSellByDateHasPassed();
-        return this;
-    }
-
-    protected void decreaseQuality() {
-        // The Quality of an item is never negative
-        if (quality > 0) {
-            quality = quality - 1;
+    public void updateQuality() {
+        quality.decrease();
+        sellIn.decrement();
+        if (sellIn.IsOverdue()) {
+            quality.decrease();
         }
     }
 
-    protected void decrementSellInDays() {
-        sellIn = sellIn - 1;
+    public int getQuality() {
+        return quality.getQuality();
     }
 
-    protected void decreaseQualityTwiceOnceSellByDateHasPassed() {
-        if (sellIn < 0 && quality > 0) {
-            decreaseQuality();
-        }
+    public int getSellIn() {
+        return sellIn.getSellIn();
     }
+    
 
-    protected void increaseQuality() {
-        // The Quality of an item is never more than 50
-        if (quality < 50) {
-            quality = quality + 1;
-        }
-    }
 }
